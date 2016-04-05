@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="page-view-size" content="1280*720" />
+	</head>
+	<body onload="init();">
+		<div style="width: 1280px;height: 720px;position:absolute;background-position: 0 0; background-repeat: no-repeat">
+			<div style="width: 754px;height: 253px;position: absolute;top:417px;left:263px;  background-repeat: no-repeat; background-image:url('./img1/rqcode.png');"></div>
+		</div>
+		<script type="text/javascript">
+			//EventListener;
+			function addEvent(el,name,fn){  
+				if(el.addEventListener){ 
+					return el.addEventListener(name,fn,false); 
+				}
+			}
+			
+			addEvent(document, 'keydown', function(){
+				var val= event.which || event.keyCode;
+				try{
+					if(val==8){
+						
+							parent.closeActivity();
+					}
+					
+				}catch(e){}
+			})
+			function init(){
+					document.body.style.width="1280px";
+					document.body.style.height="720px";
+					document.body.style.padding="0";
+					document.body.style.margin="0";
+					document.body.style.backgroundColor="transparent";
+					document.body.style.top="0px";
+					document.body.style.left="0px";
+					document.body.style.position="absolute";	
+			}
+		</script>
+	</body>
+</html>

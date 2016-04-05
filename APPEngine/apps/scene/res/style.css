@@ -1,0 +1,22 @@
+body{ margin: 0; padding: 0;}
+#main{
+    width: 379px; height: 209px; background: url("img/main.png") no-repeat; display: none;
+}
+#key1{
+    width: 193px; height: 38px; background: url("img/1.png") no-repeat;display: none;
+}
+#key2{
+    width: 193px; height: 38px; background: url("img/2.png") no-repeat;display: none;
+}
+#key3{
+    width: 193px; height: 38px; background: url("img/3.png") no-repeat;display: none;
+}
+#key4_5{
+    width: 293px; height: 162px; background: url("img/4-5.png") no-repeat;display: none;
+}
+#key6{
+    width: 193px; height: 38px; background: url("img/6.png") no-repeat;display: none;
+}
+#yellow{
+     width: 204px; height: 193px; background: url("img/time.png") no-repeat; display: none;
+}

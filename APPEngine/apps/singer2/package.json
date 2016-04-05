@@ -1,0 +1,33 @@
+{
+    "name": "测试应用",
+    "version": "0.0.1",
+    "author": "西维尔",
+    "description": "测试使用",
+    "main": {
+        "css": "game/index.css",
+        "html": "game/index_1.html",
+        "js": "game/index.js"
+    },
+    "test": {
+        "status": {
+            "areaCode": "SZ",
+            "pageId": "",
+            "channelId": "",
+            "columnId": "",
+            "assetId": ""
+        },
+        "init": {
+            "auto": true,
+           "width": 1280,
+            "height": 720,
+            "left": 0,
+            "top": 0,
+            "active": true,
+            "startPoint": [],
+            "stopPoint": [],
+            "startTime": [],
+            "stopTime": [],
+            "playState" :[]
+        }
+    }
+}

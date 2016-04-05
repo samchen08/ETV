@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>终端模拟器</title>
+    <style>
+        body, h1, h3, p, ul, ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: '微软雅黑';
+        }
+
+        .monitor {
+            width: 1270px;
+            height: 710px;
+            background: #ccc;
+            border: 5px solid #666;
+            overflow: hidden;
+        }
+
+        .monitor h1 {
+            padding: 20px 0 20px 40px;
+            color: #666;
+        }
+
+        .monitor div {
+            padding: 10px 0 20px 40px;
+        }
+
+        .monitor h3 {
+            color: #2F6FAD;
+            padding: 10px 0;
+        }
+
+        .monitor p {
+        }
+
+        .monitor p strong, .monitor p span {
+            display: inline-block;
+        }
+
+        .monitor p strong {
+            text-align: right;
+            width: 100px;
+            padding-right: 10px;
+        }
+
+        .loaders {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+        }
+
+        .loader {
+            border: 3px dotted #2F6FAD;
+            padding: 10px;
+            font-size: 12px;
+            background: #dddddd;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .loader p strong, .loader p span {
+            display: inline-block;
+        }
+
+        .loader p strong {
+            text-align: right;
+            width: 80px;
+            padding-right: 10px;
+        }
+
+        .handle {
+            padding-top: 10px;
+        }
+
+        .handle input {
+            margin: 0 0 5px 0;
+        }
+
+        .loader h3 {
+            background: #ccc;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="monitor" class="monitor">
+    <h1>终端模拟器</h1>
+
+    <div class="package">
+        <h3>running</h3>
+
+        <p><strong>package</strong> <span id="package"></span></p>
+
+        <p><strong>time</strong> <span id="time"> </span></p>
+        <p><strong>onReady</strong> <span id="readyTime"></span></p>
+        <p><strong>onConnect</strong> <span id="connectTime"></span></p>
+        <p><strong>onStatus</strong> <span id="statusTime"></span></p>
+    </div>
+    <div class="status">
+        <h3>status</h3>
+
+        <p><strong>areaCode</strong> <span id="areaCode"></span></p>
+
+        <p><strong>pageId</strong> <span id="pageId"></span></p>
+
+        <p><strong>channelId</strong><span id="channelId">  </span></p>
+
+        <p><strong>columnId</strong><span id="columnId">  </span></p>
+
+        <p><strong>assetId</strong> <span id="assetId"></span></p>
+    </div>
+    <div class="playerStatus">
+        <h3>player</h3>
+
+        <p><strong>point</strong><span id="point"> 0 </span></p>
+
+        <p><strong>volume</strong><span id="volume"> 0 </span></p>
+
+        <p><strong>playState</strong> <span id="palyState">0</span></p>
+
+    </div>
+    <div class="btns">
+        <input type="button" value="播放" id="play"/>
+        <input type="button" value="暂停" id="pause"/>
+        <input type="button" value="停止" id="stop"/>
+        <input type="button" value="静音" id="mute"/>
+        <input type="button" value="音量+" id="volumeUp"/>
+        <input type="button" value="音量-" id="volumeDown"/>
+        <input type="button" value="快进" id="FF"/>
+        <input type="button" value="快退" id="FR"/>
+    </div>
+</div>
+<div id="appLoaders" class="loaders">
+
+
+</div>
+<script type="text/x-handlebars-template" id="template">
+    <div class="loader">
+        <h3>AppLoader: <span>{$appId}</span></h3>
+
+        <div class="attr">
+            <p><strong>_active</strong> <span class="active">{$active}</span></p>
+
+            <p><strong>isShow</strong> <span class="isShow">{$isShow}</span></p>
+            <p><strong>auto</strong> <span>{$auto}</span></p>
+            <p><strong>startTime</strong> <span>{$startTime}</span></p>
+
+            <p><strong>stopTime</strong> <span>{$stopTime}</span></p>
+
+            <p><strong>startPoint</strong> <span>{$startPoint}</span></p>
+
+            <p><strong>stopPoint</strong> <span>{$stopPoint}</span></p>
+
+            <p><strong>playState</strong> <span>{$playState}</span></p>
+            <p><strong>showKey</strong> <span>{$showKey}</span></p>
+            <p><strong>activeKey</strong> <span>{$activeKey}</span></p>
+        </div>
+        <div class="handle">
+            <input type="button" value="show" class="show"/>
+            <input type="button" value="hide" class="hide"/>
+            <input type="button" value="destroy" class="destroy"/>
+            <input type="button" value="uninstall" class="uninstall"/>
+            <input type="button" value="active" class="active"/>
+            <input type="button" value="unActive" class="unActive"/>
+            <input type="button" value="x+" class="left"/>
+            <input type="button" value="x-" class="right"/>
+            <input type="button" value="y+" class="up"/>
+            <input type="button" value="y-" class="down"/>
+            <input type="button" value="zoom+" class="zoomUp"/>
+            <input type="button" value="zoom-" class="zoomDown"/>
+        </div>
+    </div>
+</script>
+
+<script>
+
+
+
+
+</script>
+<script src="js/sea.js"></script>
+<script src="js/etv.engine.http.js"></script>
+<script src="js/monitor.js"></script>
+
+</body>
+</html>

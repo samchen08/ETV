@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title>test engine</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            border: 3px dotted #000;
+            background: #aaa;;
+            position: relative;
+        }
+
+        h3 {
+            color: #0000ff;
+        }
+
+        #message {
+            margin: 50px 80px;
+        }
+
+        .match {
+            margin-left: 20px;
+            color: #008000;
+        }
+
+        .notMatch {
+            margin-left: 20px;
+            color: #ff0000;
+        }
+
+        #app {
+            position: absolute;
+            border: 4px dotted #0765ab;
+            top: 50px;
+            right: 80px;
+            width: 400px;
+            height: 600px;
+            padding: 10px;
+        }
+
+        #app h3 {
+            padding: 0;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="message">
+        <h3>package</h3>
+
+        <p id="url"></p>
+
+        <h3>status</h3>
+
+        <div id="status">
+        </div>
+        <h3>point</h3>
+
+        <p id="point">0</p>
+
+        <h3>time</h3>
+
+        <p id="time"></p>
+    </div>
+    <div id="app">
+        <h3>AppLoader</h3>
+
+        <div id="attrs"></div>
+    </div>
+</div>
+
+
+<script src="../lib/tvui.min.js"></script>
+<script src="../src/etv.engine.js"></script>
+<script>
+
+
+    var appId = 11111;
+    var param = TVUI.Util.queryToJson(location.search);
+    var page = new TVUI.Page({name:'etvEngine'});
+    var currentPoint = 0;
+    var $span = $('#point');
+    var $time = $('#time');
+    var $attrs = $('#attrs');
+    var packageJSON = null;
+
+
+    var __ca = {
+        GZ: [1, 999], //广州
+        SZ: [1000, 1199],//深圳
+        ZH: [1200, 1399], //珠海
+        ST: [1400, 1599],//汕头
+        FS: [1600, 2099], //佛山
+        SG: [2200, 2399],//韶关
+        ZJ: [2400, 2599],//湛江
+        ZQ: [2600, 2799],//肇庆
+        JM: [2800, 2999],//江门
+        MM: [3000, 3199],//茂名
+        HZ: [3200, 3399],//惠州
+        MZ: [3400, 3599],//梅州
+        SW: [3600, 3799],// 汕尾
+        HY: [3800, 3999],//河源
+        YJ: [4000, 4199],//阳江
+        QY: [4200, 4399],//清远
+        DG: [4400, 5399],//东莞
+        ZS: [5400, 6399],//中山
+        CZ: [6400, 6599],//潮州
+        JY: [6600, 6799],//揭阳
+        YF: [6800, 6999]//云浮
+    };
+    var CA = {};
+    for (var key in __ca) {
+        var array = __ca[key];
+        for (var i = array[0]; i <= array[1]; i++) {
+            CA[i] = key;
+        }
+    }
+
+    var getKey = function (status) {
+        var array = [];
+        if (status.areaCode) {
+            var code = parseInt(status.areaCode);
+            isNaN(code) ? array.push(status.areaCode) : array.push(CA[status.areaCode] || '');
+        } else {
+            array.push(status.areaCode || '');
+        }
+        array.push(status.pageId || '');
+        array.push(status.channelId || '');
+        array.push(status.columnId || '');
+        array.push(status.assetId || '');
+        return array.join('_');
+    };
+
+    $('#url').html(param.package || '');
+
+    function renderStatus(status) {
+        var html = [];
+        delete status.package;
+        $.each(status, function (key, value) {
+            if (key != 'icNo') {
+                if (packageJSON && packageJSON.test && packageJSON.test.status) {
+                    var match = '<span class="notMatch">No Match</span>';
+                    if (key == 'areaCode') {
+                        if (packageJSON.test.status[key] == CA[value]) {
+                            match = '<span class="match">Match</span>';
+                        } else {
+                            match = '<span class="notMatch">No Match (' + CA[value] + ' , ' + value + ')</span>';
+                        }
+                    } else {
+                        if (packageJSON.test.status[key] == value) {
+                            match = '<span class="match">Match</span>';
+                        }
+                    }
+                    html.push('<p><strong>' + key + '</strong>  : ' + value + ' ' + match + '</p>');
+                } else {
+                    html.push('<p><strong>' + key + '</strong>  : ' + value + '</p>');
+                }
+            }
+        });
+        $('#status').html(html.join(''));
+    }
+
+    ETV.Engine.on('ready', function () {
+        renderStatus(ETV.Engine.status);
+        setInterval(function () {
+            ETV.Engine.setPoint(++currentPoint);
+            $span.html(currentPoint);
+            $time.html(TVUI.Util.date(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+        }, 1000);
+    });
+
+    ETV.Engine.on('change', function (status) {
+        renderStatus(status);
+        ETV.Engine.fire('uninstall', appId);
+        if (packageJSON && packageJSON.test && getKey(ETV.Engine.status) == getKey(packageJSON.test.status)) {
+            var app = packageJSON.test.init || {};
+            app.appId = appId;
+            app.appPackage = param.package;
+            ETV.Engine.fire('install', app);
+        }
+    });
+
+
+    ETV.Engine.init($.extend({
+        areaCode: 101,
+        pageId: "",
+        channelId: "",
+        columnId: "",
+        assetId: ""
+
+    }, param || {}));
+
+
+    if (param.package) {
+        $.getJSON(param.package, function (json) {
+            if (json && json.test && getKey(ETV.Engine.status) == getKey(json.test.status)) {
+                packageJSON = json;
+                renderStatus(ETV.Engine.status);
+                var app = json.test.init || {};
+                app.appId = appId;
+                app.appPackage = param.package;
+                ETV.Engine.fire('install', app);
+            }
+        });
+    }
+
+    function bindAppAttr(app) {
+        var template = '<p><strong>{$name}</strong> : {$value}</p>';
+        var data = [
+            {name: 'auto', value: app.auto},
+            {name: '_active', value: app._active},
+            {name: 'isShow', value: app.isShow},
+            {name: 'state', value: app.state},
+            {name:'offset',value:JSON.stringify(app.offset())},
+            {name: 'startTime', value: JSON.stringify(app.startTime)},
+            {name: 'stopTime', value:  JSON.stringify(app.stopTime)},
+            {name: 'startPoint', value:  JSON.stringify(app.startPoint)},
+            {name: 'stopPoint', value:  JSON.stringify(app.stopPoint)},
+            {name: 'showKey', value: app.showKey},
+            {name: 'activeKey', value: app.activeKey},
+            {name: 'basePath', value: app.basePath}
+
+        ];
+        var html = TVUI.Util.tpl(template, data);
+        $attrs.html(html);
+
+    }
+
+    ETV.Engine.on('install update', function (app) {
+        if($.isArray(app)){
+            app = app[0];
+        }
+        var loader = ETV.Engine.findLoader(app.appId);
+        if(!loader) return ;
+
+        bindAppAttr(loader);
+        loader.on('install show hide destroy uninstall update active unActive', function(){
+            bindAppAttr(loader);
+        });
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "测试应用",
+  "version": "0.0.1",
+  "author": "西维尔",
+  "description": "测试使用",
+  "main": {
+    "css": "res/style.css",
+    "html": "res/index.html",
+    "js": "res/app.js"
+  },
+  "keyCode": [
+    37,
+    38,
+    39,
+    49
+  ],
+  "test": {
+    "status": {
+      "areaCode": "GZ",
+      "pageId": "",
+      "channelId": "",
+      "columnId": "",
+      "assetId": ""
+    },
+    "init": {
+      "auto": true,
+      "width": 1050,
+      "height": 700,
+      "left": 0,
+      "top": 0,
+      "active": true,
+      "startPoint": [],
+      "stopPoint": [],
+      "startTime": [],
+      "stopTime": [],
+      "playState": []
+    }
+  }
+}

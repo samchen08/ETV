@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  	<meta name="page-view-size" content="1280*720" />
+	<METAHTTP-EQUIV="Pragma"CONTENT="no-cache">
+	<METAHTTP-EQUIV="Cache-Control"CONTENT="no-cache">
+	<METAHTTP-EQUIV="Expires"CONTENT="0">
+	<meta charset="utf-8"/>
+	<title>投票前提示</title>
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+</head>
+<body style="padding:0; margin:0px;">
+		<div class="msg_Content">
+			<div class="pop_icon">
+				<div style="position:absolute;top:0px; left:35px; color:#fff; font-size:28px; width:650px;border:solid 1px #FFFF00;" id="_content">
+					<div style="width:1000000px;" id="scrollobj">
+						<marquee width="750" height="50" behavior="slide" loop="2" scrollamount="5">
+						史上颜值最高的社交手游《栀子花开》，欢迎下载！
+						</marquee>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+<script type="text/javascript">
+function GetQueryString(name) 
+	{ 
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) return unescape(r[2]); return null; 
+	}
+	//var actId;
+	window.onload=function(){
+		document.body.style.width="1280px";
+		document.body.style.height="720px";
+		document.body.style.padding="0";
+		document.body.style.margin="0";
+		document.body.style.backgroundColor="transparent";
+		document.body.style.top="0px";
+		document.body.style.left="0px";
+		document.body.style.position="absolute";
+
+		//actId=GetQueryString("actId");
+	}
+
+document.onkeydown=function(event){//获取电脑键盘响应
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+	if(e && e.keyCode==13){ // 按 Enter 
+		window.location.href="game.html?flag=1";
+	}
+
+}
+/*
+window.onkeydown=function(){
+	var val= event.which || event.keyCode;
+	switch(val){
+		case 13:
+		window.location.href="vote.html";
+		break;
+		}
+	}
+*/
+</script>
+</html>

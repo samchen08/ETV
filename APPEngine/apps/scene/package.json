@@ -1,0 +1,29 @@
+﻿{
+    "name": "电视场景插入",
+    "version": "0.0.1",
+    "author": "西维尔",
+    "description": "U+族增强型电视场景插入",
+    "main": {
+        "css": "res/style.css",
+        "html": "res/index.html",
+        "js": "res/app.js"
+    },
+    "test": {
+        "status": {
+            "areaCode": "GZ",
+            "pageId": "",
+            "channelId": "",
+            "columnId": "",
+            "assetId": ""
+        },
+        "init": {
+            "auto": true,
+            "active": true,
+            "startPoint": [10, 25, 35, 45, 55],
+            "stopPoint": [20, 30, 40, 50, 60]
+        }
+    }
+}
+
+
+

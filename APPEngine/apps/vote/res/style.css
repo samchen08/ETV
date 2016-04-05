@@ -1,0 +1,11 @@
+body,div,p,ul{margin:0;padding:0;}
+ul{list-style:none;}
+.vote-tit{width:900px;height:80px;margin:0 auto;padding-left:150px;background:url("images/captionsa.png") no-repeat;font:normal 28px/80px Microsoft Yahei;color:#fff;}
+
+.vote-lists{width:385px;height:460px;padding-top:5px;padding-left:25px;background:url("images/captionsb.png") no-repeat;}
+.votes-tit{height:80px;padding-left:30px;font:normal 28px/80px Microsoft Yahei;color:#cef;}
+.singer-lists{padding-left:30px;padding-top:15px;}
+.singer-lists li{width:320px;height:50px;margin-bottom:10px;padding-left:20px;font:normal 24px/50px Microsoft Yahei;color:#fff;}
+.singer-lists .li-focus{background:url("images/captionsbb.png") no-repeat;}
+.singer-lists li div{width:37px;float:left;}
+.vote-quit{padding:10px 20px 0 0;color:#aaa;text-align:right;font-size:20px;font-family:Microsoft Yahei;}
